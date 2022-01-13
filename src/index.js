@@ -35,7 +35,7 @@ function createFewCountriesMarkup(country) {
     .map(country => {
       return `<li class="country">
         <img src="${country.flags.svg}" alt="${country.name}">
-        <p>${country.name}</p>
+        <p class="countries">${country.name}</p>
         </li>`;
     })
     .join('');
@@ -45,18 +45,16 @@ function createFewCountriesMarkup(country) {
 function createOneCountryMarkup(country) {
   const markup = country
     .map(country => {
-      return `<div class="title"><img src="${country.flags.svg}" alt="${country.name}">
-            <h1> ${country.name}</h1></div>
-            <p>Capital: ${country.capital}</p>
-            <p>Population: ${country.population}</p>
-            <p>Languages: ${Object.values(country.languages.map(language => language.name))}</p>`;
+      return `<div class="title">
+      <img src="${country.flags.svg}" alt="${country.name}">
+            <h1> ${country.name}</h1>
+            </div>
+            <p class="capital"><span class="text">Capital: </span>${country.capital}</p>
+            <p class="population"><span class="text">Population: </span> ${country.population}</p>
+            <p class="languages"><span class="text">Languages: </span>${Object.values(
+              country.languages.map(language => language.name),
+            )}</p>`;
     })
     .join('');
   return markup;
-}
-
-{
-  /* <p class="capital"><span class="text">Capital: </span>{{capital}}</p>
-        <p class="population"><span class="text">Population: </span>{{population}}</p>
-        <ul class="languages"><span class="text">Languages:</span>{{#each languages}} */
 }
