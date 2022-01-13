@@ -13,24 +13,44 @@ input.addEventListener('input', debounce(getCountries, DEBOUNCE_DELAY));
 
 function getCountries() {
   const inputValue = input.value.trim();
-  // fetchCountries(inputValue).then(data => createMarkup(data.results));
   fetchCountries(inputValue).then(country => {
     if (country.length > 10) {
       Notify.info('Too many matches found. Please enter a more specific name.');
     } else if (country.length >= 2 && country.length <= 10) {
       console.log('YEAH!!!, the country has been found');
       console.log(country);
+      list.innerHTML = createFewCountriesMarkup(country);
     } else if (!country.length) {
       Notify.failure('Oops, there is no country with that name');
     } else {
       console.log('YEAH!!!, the country has been found');
       console.log(country);
+      info.innerHTML = createOneCountryMarkup(country);
     }
   });
 }
 
-function createOneCountryMarkup(name) {
-  document.body.append(list);
-  const markup = name;
-  list.insertAdjacentHTML('beforeend', markup);
+function createFewCountriesMarkup(country) {
+  const markup = country
+    .map(country => {
+      return `<li class="country">
+        <img src="${country.flags.svg}" alt="${country.name}">
+        <p>${country.name}</p>
+        </li>`;
+    })
+    .join('');
+  return markup;
+}
+
+function createOneCountryMarkup(country) {
+  const markup = country
+    .map(country => {
+      return `<img src="${country.flags.svg}" alt="${country.name}">
+            <p> ${country.name}</p>
+            <p>Capital: ${country.capital}</p>
+            <p>Population: ${country.population}</p>
+            <p>Languages: ${Object.values(country.languages.map(language => language.name))}</p>`;
+    })
+    .join('');
+  return markup;
 }
