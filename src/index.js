@@ -45,12 +45,18 @@ function createFewCountriesMarkup(country) {
 function createOneCountryMarkup(country) {
   const markup = country
     .map(country => {
-      return `<img src="${country.flags.svg}" alt="${country.name}">
-            <p> ${country.name}</p>
+      return `<div class="title"><img src="${country.flags.svg}" alt="${country.name}">
+            <h1> ${country.name}</h1></div>
             <p>Capital: ${country.capital}</p>
             <p>Population: ${country.population}</p>
             <p>Languages: ${Object.values(country.languages.map(language => language.name))}</p>`;
     })
     .join('');
   return markup;
+}
+
+{
+  /* <p class="capital"><span class="text">Capital: </span>{{capital}}</p>
+        <p class="population"><span class="text">Population: </span>{{population}}</p>
+        <ul class="languages"><span class="text">Languages:</span>{{#each languages}} */
 }
