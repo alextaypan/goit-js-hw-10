@@ -13,21 +13,23 @@ input.addEventListener('input', debounce(getCountries, DEBOUNCE_DELAY));
 
 function getCountries() {
   const inputValue = input.value.trim();
-  fetchCountries(inputValue).then(country => {
-    if (country.length > 10) {
-      Notify.info('Too many matches found. Please enter a more specific name.');
-    } else if (country.length >= 2 && country.length <= 10) {
-      console.log('YEAH!!!, the country has been found');
-      console.log(country);
-      list.innerHTML = createFewCountriesMarkup(country);
-    } else if (!country.length) {
-      Notify.failure('Oops, there is no country with that name');
-    } else {
-      console.log('YEAH!!!, the country has been found');
-      console.log(country);
-      info.innerHTML = createOneCountryMarkup(country);
-    }
-  });
+  fetchCountries(inputValue)
+    .then(country => {
+      if (country.length > 10) {
+        Notify.info('Too many matches found. Please enter a more specific name.');
+      } else if (country.length >= 2 && country.length <= 10) {
+        console.log('YEAH!!!, the country has been found');
+        console.log(country);
+        list.innerHTML = createFewCountriesMarkup(country);
+      } else if (!country.length) {
+        Notify.failure('Oops, there is no country with that name');
+      } else {
+        console.log('YEAH!!!, the country has been found');
+        console.log(country);
+        info.innerHTML = createOneCountryMarkup(country);
+      }
+    })
+    .catch(error => console.log(error));
 }
 
 function createFewCountriesMarkup(country) {
